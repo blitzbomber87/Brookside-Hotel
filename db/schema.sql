@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS hotel_booking;
+CREATE DATABASE hotel_booking;
+
 CREATE TABLE IF NOT EXISTS guest (
     id SERIAL PRIMARY KEY,
     full_name VARCHAR NOT NULL,
