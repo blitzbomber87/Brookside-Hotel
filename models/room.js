@@ -1,9 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config');
+const {RoomType } = require('./roomType')
 
-class ROOM extends Model {}
+class Room extends Model {}
 
-ROOM.init(
+Room.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,8 +12,9 @@ ROOM.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    type: {
+    typeId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     is_available: {
       type: DataTypes.BOOLEAN,
@@ -28,4 +30,4 @@ ROOM.init(
   }
 );
 
-module.exports = Rooms;
+module.exports = Room;
