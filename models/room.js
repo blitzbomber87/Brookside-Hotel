@@ -15,6 +15,10 @@ Room.init(
     typeId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+        references: {
+          model: roomType,
+          key: 'id',
+        },
     },
     is_available: {
       type: DataTypes.BOOLEAN,
