@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config');
-const {RoomType } = require('./roomType')
 
 class Room extends Model {}
 
@@ -16,7 +15,7 @@ Room.init(
       type: DataTypes.INTEGER,
       allowNull: false,
         references: {
-          model: roomType,
+          model: 'roomType',
           key: 'id',
         },
     },
