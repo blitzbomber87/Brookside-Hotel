@@ -1,51 +1,65 @@
-const { Sequelize } = require('sequelize');
-const sequelize = require('./config');
-const Guest = require('./models/guest');
-const RoomType = require('./models/roomType');
-const Room = require('./models/room');
-const Reservation = require('./models/reservation');
-const ReservedRoom = require('./models/reservedRoom');
-const OccupiedRoom = require('./models/occupiedRoom');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config');
+const bcrypt = require('bcrypt');
 
-// Guest and Reservation
-Guest.hasMany(Reservation, { foreignKey: 'guestId' });
-Reservation.belongsTo(Guest, { foreignKey: 'guestId' });
+class Guest extends Model {
+    checkPassword(loginPw) {
+        return bcrypt.compareSync(loginPw, this.password);
+    }
+}
 
-// RoomType and Room
-RoomType.hasMany(Room, { foreignKey: 'typeId' });
-Room.belongsTo(RoomType, { foreignKey: 'typeId' });
+Guest.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        fullName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        phone: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isNumeric: true
+            }
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true
+            }
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [10]
+            }
+        }
+    },
+    {
+        hooks: {
+            beforeCreate: async (newGuestData) => {
+                newGuestData.password = await bcrypt.hash(newGuestData.password, 10);
+                return newGuestData;
+            },
+            beforeUpdate: async (updatedGuestData) => {
+                updatedGuestData.password = await bcrypt.hash(updatedGuestData.password, 10);
+                return updatedGuestData;
+            }
+        },
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'guest'
+    }
+);
 
-// Reservation and ReservedRoom
-Reservation.hasMany(ReservedRoom, { foreignKey: 'reservationId' });
-ReservedRoom.belongsTo(Reservation, { foreignKey: 'reservationId' });
-
-// RoomType and ReservedRoom
-RoomType.hasMany(ReservedRoom, { foreignKey: 'roomTypeId' });
-ReservedRoom.belongsTo(RoomType, { foreignKey: 'roomTypeId' });
-
-// Room and OccupiedRoom
-Room.hasMany(OccupiedRoom, { foreignKey: 'roomId' });
-OccupiedRoom.belongsTo(Room, { foreignKey: 'roomId' });
-
-// Reservation and OccupiedRoom
-Reservation.hasMany(OccupiedRoom, { foreignKey: 'reservationId' });
-OccupiedRoom.belongsTo(Reservation, { foreignKey: 'reservationId' });
-
-// Sync database
-sequelize.sync({ force: false })
-    .then(() => {
-        console.log('Database synced');
-    })
-    .catch(err => {
-        console.error('Error syncing database:', err);
-    });
-
-module.exports = {
-    sequelize,
-    Guest,
-    RoomType,
-    Room,
-    Reservation,
-    ReservedRoom,
-    OccupiedRoom
-};
+module.exports = Guest;
