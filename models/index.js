@@ -1,65 +1,34 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config');
-const bcrypt = require('bcrypt');
+const { Guest, RoomType, Room, Reservation, ReservedRoom, OccupiedRoom } = require('./models');
 
-class Guest extends Model {
-    checkPassword(loginPw) {
-        return bcrypt.compareSync(loginPw, this.password);
-    }
-}
+// Guest and Reservation
+Guest.hasMany(Reservation, { foreignKey: 'guestId' });
+Reservation.belongsTo(Guest, { foreignKey: 'guestId' });
 
-Guest.init(
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        fullName: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        phone: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-            validate: {
-                isNumeric: true
-            }
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-            validate: {
-                isEmail: true
-            }
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [10]
-            }
-        }
-    },
-    {
-        hooks: {
-            beforeCreate: async (newGuestData) => {
-                newGuestData.password = await bcrypt.hash(newGuestData.password, 10);
-                return newGuestData;
-            },
-            beforeUpdate: async (updatedGuestData) => {
-                updatedGuestData.password = await bcrypt.hash(updatedGuestData.password, 10);
-                return updatedGuestData;
-            }
-        },
-        sequelize,
-        timestamps: false,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'guest'
-    }
-);
+// RoomType and Room
+RoomType.hasMany(Room, { foreignKey: 'typeId' });
+Room.belongsTo(RoomType, { foreignKey: 'typeId' });
 
-module.exports = Guest;
+// Reservation and ReservedRoom
+Reservation.hasMany(ReservedRoom, { foreignKey: 'reservationId' });
+ReservedRoom.belongsTo(Reservation, { foreignKey: 'reservationId' });
+
+// RoomType and ReservedRoom
+RoomType.hasMany(ReservedRoom, { foreignKey: 'roomTypeId' });
+ReservedRoom.belongsTo(RoomType, { foreignKey: 'roomTypeId' });
+
+// Room and OccupiedRoom
+Room.hasMany(OccupiedRoom, { foreignKey: 'roomId' });
+OccupiedRoom.belongsTo(Room, { foreignKey: 'roomId' });
+
+// Reservation and OccupiedRoom
+Reservation.hasMany(OccupiedRoom, { foreignKey: 'reservationId' });
+OccupiedRoom.belongsTo(Reservation, { foreignKey: 'reservationId' });
+
+module.exports = {
+    Guest,
+    RoomType,
+    Room,
+    Reservation,
+    ReservedRoom,
+    OccupiedRoom
+};
