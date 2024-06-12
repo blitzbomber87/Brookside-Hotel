@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config');
-const { Guest } = require ('./guest')
 
 class Reservation extends Model {}
 
@@ -13,7 +12,10 @@ Reservation.init (
   },
   guestId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    references: {
+        model: 'guest',
+        key: 'id',
+      },
   },
   checkIn: {
     type: DataTypes.DATE,
@@ -22,7 +24,12 @@ Reservation.init (
   checkOut: {
     type: DataTypes.DATE,
     allowNull: false
-  }
+  },
+  sequelize,
+  timestamps: false,
+  freezeTableName: true,
+  underscored: true,
+    modelName: 'reservation'
 });
 
 module.exports = Reservation;
