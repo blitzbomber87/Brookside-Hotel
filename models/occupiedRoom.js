@@ -1,7 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config');
-const Room = require('./room');
-const Reservation = require('./reservation');
 
 class OccupiedRoom extends Model {}
 
@@ -16,7 +14,7 @@ OccupiedRoom.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: Room,
+                model: 'room',
                 key: 'id'
             }
         },
@@ -24,13 +22,16 @@ OccupiedRoom.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: Reservation,
+                model: 'reservation',
                 key: 'id'
             }
         }
     },
     {
         sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
         modelName: 'occupiedRoom',
     }
 );
