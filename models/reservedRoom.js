@@ -31,7 +31,7 @@ ReservedRoom.init({
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  status: {
+  confirmed: {
     type: DataTypes.BOOLEAN,
     allowNull: false
   }
