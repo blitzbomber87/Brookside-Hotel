@@ -6,8 +6,8 @@ class RoomType extends Model {}
 RoomType.init(
     {
         name: {
-			type: DataTypes.STRING,
-			allowNull: false
+		type: DataTypes.STRING,
+		allowNull: false
 		},
         id: {
             type: DataTypes.INTEGER,
@@ -23,6 +23,11 @@ RoomType.init(
             allowNull: false
         }
     },
+	image: {
+    	 type: DataTypes.STRING,
+	 allowNull: false 
+    }
+},
     {
         sequelize,
         timestamps: false,
