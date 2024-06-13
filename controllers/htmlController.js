@@ -8,6 +8,9 @@ module.exports = {
 		console.log(req.session.logged_in);
 		res.render('homepage', { types, logged_in: req.session.logged_in });
 	},
+    login: async (req, res) => {
+        res.render('login');
+    },
 	signup: async (req, res) => {
 		res.render('signup');
 	}
