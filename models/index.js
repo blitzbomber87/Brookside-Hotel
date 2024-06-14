@@ -1,9 +1,9 @@
-const { Guest } = require('./guest');
-const { RoomType } = require('./roomType');
-const { Room } = require('./room');
-const { Reservation } = require('./reservation');
-const { ReservedRoom } = require('./reservedRoom');
-const { OccupiedRoom } = require('./occupiedRoom');
+const Guest = require('./guest');
+const RoomType = require('./roomType');
+const Room = require('./room');
+const Reservation = require('./reservation');
+const ReservedRoom = require('./reservedRoom');
+const OccupiedRoom = require('./occupiedRoom');
 
 Guest.hasMany(Reservation, { foreignKey: 'guestId' });
 Reservation.belongsTo(Guest, { foreignKey: 'guestId' });
