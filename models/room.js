@@ -22,6 +22,7 @@ Room.init(
     is_available: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: true,
     },
   },
   {
