@@ -2,7 +2,9 @@ const { RoomType } = require('../models');
 
 module.exports = {
 	homepage: async (req, res) => {
-		const roomType = await RoomType.findAll();
+		const roomType = await RoomType.findAll({
+			order: [['name', 'ASC'],]
+		});
 
 		const types = roomType.map((type) => type.get({ plain: true }));
 		console.log(req.session.logged_in);
