@@ -1,0 +1,37 @@
+<h2 class="m-5">Hello {{guest.fullName}}</h2>
+
+<h3 class="m-5">Reservations</h3>
+<div class="accordion accordion-flush mx-5" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Upcoming
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <ul class="list-group list-group-flush">
+            {{!-- will need to add helper(?) to pull out only reservations after current date --}}
+            {{#each Reservations}}
+                <li class="list-group-item">Reservation #{{id}} ({{checkIn}} - {{checkOut}})</li>
+            {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Past
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        {{!-- will need to add helper(?) to pull out only reservations before current date --}}
+        {{#each Reservations}}
+                <li class="list-group-item">Reservation #{{id}} ({{checkIn}} - {{checkOut}})</li>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
