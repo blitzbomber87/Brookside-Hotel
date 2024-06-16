@@ -10,5 +10,17 @@ module.exports = {
 
         const reservationData = await Reservation.create(tempData);
         res.json(reservationData);
-    }
+    },
+    showAll: async (req, res) => {
+        try {
+            const reservationData = await Reservation.findAll({
+                where: {
+                    guestId: res.session.guest_id
+                }
+            });
+            res.status(json(reservationData));
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
 }
