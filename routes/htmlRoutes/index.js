@@ -6,6 +6,7 @@ router.route('/signup').get(htmlController.signup);
 router.route('/').get(htmlController.homepage);
 router.route('/rooms').get(htmlController.rooms);
 router.route('/profile').get(htmlController.profile);
-// router.route('/booking').get(htmlController.booking);
+router.route('/booking').get(htmlController.booking);
+router.route('/confirmation').get(htmlController.confirmation);
 
 module.exports = router;

@@ -28,5 +28,20 @@ module.exports = {
 		const reservations = reservation.map((res) => res.get({ plain: true }));
 
 		res.render('profile', { reservations })
+	},
+	booking: async (req, res)  =>  {
+		const roomType = await RoomType.findAll();
+
+		const types = roomType.map((type) => type.get({ plain: true }));
+		// console.log(req.session.logged_in);
+		res.render('booking', { types });
+	},
+	confirmation: async (req, res) => {
+		const reservation = await Reservation.findAll({
+			include: ['guest']
+		});
+		const reservations = reservation.map((res) => res.get({ plain: true }));
+
+		res.render('confirmation', { reservations })
 	}
 };
