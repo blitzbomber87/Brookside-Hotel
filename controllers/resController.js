@@ -24,7 +24,7 @@ module.exports = {
         try {
             const reservationData = await Reservation.findAll({
                 where: {
-                    guestId: res.session.guest_id
+                    guestId: req.session.guest_id
                 }
             });
             res.json(reservationData);
