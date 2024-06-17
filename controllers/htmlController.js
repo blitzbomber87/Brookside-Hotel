@@ -43,5 +43,8 @@ module.exports = {
 		const reservations = reservation.map((res) => res.get({ plain: true }));
 
 		res.render('confirmation', { reservations })
-	}
+	},
+	contact: async (req, res) => {
+        res.render('contact');
+    },
 };

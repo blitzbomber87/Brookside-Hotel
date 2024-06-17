@@ -8,5 +8,6 @@ router.route('/rooms').get(htmlController.rooms);
 router.route('/profile').get(htmlController.profile);
 router.route('/booking').get(htmlController.booking);
 router.route('/confirmation').get(htmlController.confirmation);
+router.route('/contact').get(htmlController.contact);
 
 module.exports = router;
