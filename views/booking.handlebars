@@ -1,0 +1,31 @@
+{{!-- cards to show available rooms --}}
+{{#each types}}
+    <div class="m-5">
+      <div class="card mb-1 p-5">
+          <div class="row">
+            <div class="col-md-4">
+              <img src="{{image}}" class="img-fluid rounded-start" alt="hotel room for {{name}}">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{name}}</h5>
+                <p class="card-text">{{description}}</p>
+                <p class="card-text"><small class="text-muted">Max Occupancy: {{maxOccupancy}}</small></p>  
+                <div class="w-50 my-5 d-md-flex justify-content-md-end">
+                  <label for="selectRoom"># of Rooms</label>
+                  <select class="form-select" aria-label="select room">
+                  <option selected>Select Qty</option>
+                  <option value="1">1</option>
+                  <option value="1">2</option>
+                  </select>
+                </div>            
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{{/each}}
+
+<div class="d-md-flex justify-content-md-end m-5">
+  <button type="button" class="btn btn-dark">Book now</button>
+</div>
