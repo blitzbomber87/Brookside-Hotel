@@ -28,24 +28,29 @@ module.exports = {
 				res.status(400).json({ message: 'Incorrect email or password, please try again' });
 				return;
 			}
-
+			console.log("logging in")
 			// Create session variables based on the logged in guest
 			req.session.save(() => {
 				req.session.guest_id = guestData.id;
 				req.session.logged_in = true;
-
+				
 				res.json({ guest: guestData, message: 'You are now logged in!' });
 			});
+s
 		} catch (err) {
 			res.status(400).json(err);
 		}
 	},
 	logout: (req, res) => {
+		console.log("logout")
 		if (req.session.logged_in) {
 			// Remove the session variables
+			console.log("logout")
 			req.session.destroy(() => {
 				res.status(204).end();
 			});
+
+			
 		} else {
 			res.status(404).end();
 		}
