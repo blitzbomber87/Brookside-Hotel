@@ -7,7 +7,7 @@ module.exports = {
             const tempData = {
                 reservationId: req.session.reservation_id,
                 typeId: req.body.typeId,
-                quantity: req.body.quatity,
+                quantity: req.body.quantity,
                 confirmed: true
             }
             
@@ -35,7 +35,7 @@ module.exports = {
     // update reserved room confirmation for a given id/number
     updateReservedRoom: async (req, res) => {
         try {
-            const resRoomData = Room.update(
+            const resRoomData = ReservedRoom.update(
                 {confirmed: req.body.confirmed}, 
                 {
                     where: {
