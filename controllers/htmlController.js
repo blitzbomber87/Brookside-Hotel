@@ -6,22 +6,20 @@ module.exports = {
 			order: [['name', 'ASC'],]
 		});
 
-		const types = roomType.map((type) => type.get({ plain: true }));
-		console.log(req.session.logged_in);
-		res.render('homepage', { types, logged_in: req.session.logged_in });
+		const types = roomType.map((type) => type.get({ plain: true }));		res.render('homepage', { types, logged_in: req.session.logged_in });
 	},
     login: async (req, res) => {
-        res.render('login');
+        res.render('login', {logged_in: req.session.logged_in});
     },
 	signup: async (req, res) => {
-		res.render('signup');
+		res.render('signup', {logged_in: req.session.logged_in});
 	},
 	rooms: async (req, res) => {
 		const roomType = await RoomType.findAll();
 
 		const types = roomType.map((type) => type.get({ plain: true }));
-		// console.log(req.session.logged_in);
-		res.render('rooms', { types });
+		
+		res.render('rooms', { types, logged_in: req.session.logged_in });
 	},
 	profile: async (req, res) => {
 		const reservation = await Reservation.findAll({
@@ -29,14 +27,14 @@ module.exports = {
 		});
 		const reservations = reservation.map((res) => res.get({ plain: true }));
 
-		res.render('profile', { reservations })
+		res.render('profile', { reservations, logged_in: req.session.logged_in })
 	},
 	booking: async (req, res)  =>  {
 		const roomType = await RoomType.findAll();
 
 		const types = roomType.map((type) => type.get({ plain: true }));
-		// console.log(req.session.logged_in);
-		res.render('booking', { types });
+		
+		res.render('booking', { types, logged_in: req.session.logged_in });
 	},
 	confirmation: async (req, res) => {
 		const reservation = await Reservation.findAll({
@@ -44,9 +42,9 @@ module.exports = {
 		});
 		const reservations = reservation.map((res) => res.get({ plain: true }));
 
-		res.render('confirmation', { reservations })
+		res.render('confirmation', { reservations, logged_in: req.session.logged_in })
 	},
 	contact: async (req, res) => {
-        res.render('contact');
+        res.render('contact', {logged_in: req.session.logged_in});
     },
 };

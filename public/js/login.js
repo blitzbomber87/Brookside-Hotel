@@ -9,8 +9,6 @@ const loginFormHandler = async (event) => {
     // Collect values from the login form
     const email = $('#email').val();
     const password = $('#password').val();
-
-    console.log(email, password)
   
     if (email && password) {
       // Send a POST request to the API endpoint

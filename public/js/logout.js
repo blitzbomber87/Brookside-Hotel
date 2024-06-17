@@ -11,5 +11,5 @@ const logout = async () => {
     }
   };
   
-$('logout').on('click', logout);
+$('#logout').on('click', logout);
   
