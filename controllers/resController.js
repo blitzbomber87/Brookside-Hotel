@@ -18,7 +18,7 @@ module.exports = {
                     guestId: res.session.guest_id
                 }
             });
-            res.status(json(reservationData));
+            res.json(reservationData);
         } catch (err) {
             res.status(500).json(err);
         }

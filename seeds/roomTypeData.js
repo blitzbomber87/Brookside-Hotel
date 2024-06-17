@@ -27,7 +27,7 @@ const roomTypeData = [
     },
     {
         name: "Pentouse",
-        description: "Welcome to your spacious retreat with two king beds and two and a half bathrooms. Relax in your large soaking tub and take in the views of the Nashville skyline from your private balcony. Your home away from home has a wet bar and outdoor living and dining spaces inspired by local craftsmanship and the beauty of the city.",
+        description: "Welcome to your spacious retreat with two king beds and two and a half bathrooms. Relax in your large soaking tub and take in the views of the city skyline from your private balcony. Your home away from home has a wet bar and outdoor living and dining spaces inspired by local craftsmanship and the beauty of the city.",
         maxOccupancy: "4",
         image: "/images/Penthouse.png"
     },
