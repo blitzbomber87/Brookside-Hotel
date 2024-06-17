@@ -14,7 +14,7 @@ module.exports = {
     // update room availability for a given id/number
     updateRoom: async (req, res) => {
         try {
-            const roomData = Room.update(
+            const roomData = await Room.update(
                 {available: req.body.available}, 
                 {
                     where: {
