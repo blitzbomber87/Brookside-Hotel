@@ -2,7 +2,7 @@
 
 ## Description
 
-This application is for the brand-new Brookside Hotel. It allows guests to view rooms and pricing as well as register and login to book their next stay! 
+A web application for hotel booking that allows a guest to login and book a reservation
 
 Motivation for development:  
 We wanted to make a professional and friendly user experience that allows guests to find and reserve hotel rooms. Brookside Hotel caters to all modern travelers seeking convenience, and various choices at their fingertips.
