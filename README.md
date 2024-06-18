@@ -39,6 +39,11 @@ The user will first have to signup then login to register in order to make their
 ![signuppage](https://github.com/blitzbomber87/Brookside-Hotel/assets/157855730/71705245-2afd-4cc7-b462-224eb24b9f03)
 ![loginpage](https://github.com/blitzbomber87/Brookside-Hotel/assets/157855730/f58d1391-66f9-4dfa-b348-fcf312386101)
 
+The user can view rooms to book.
+
+![booknow](https://github.com/blitzbomber87/Brookside-Hotel/assets/157855730/37421884-e35a-42f2-b004-3584c3765c82)
+
+
 After the user logs in user can see their past and current reservations.
 
 ![guestreservationdashboard](https://github.com/blitzbomber87/Brookside-Hotel/assets/157855730/663be540-ccd8-491c-a495-55fd3649c0ac)
