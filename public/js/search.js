@@ -1,30 +1,19 @@
-const search = $("#search");
+const searchBtn = $("#search");
 
+// save check-in and check-out dates in local storage and redirect to booking
 const formHandler = async (event) => {
     event.preventDefault();
 
+    // set the check in and check out dates from user input
     const checkIn = $("#startDate").val();
     const checkOut = $("#endDate").val();
-    
-    fetch("/api/guest")
-        .then(function (response) {
-            return response.json();
-        } )
-        .then(async function(data) {
-            const guestId = data.id;
 
-            if (guestId, checkIn && checkOut) {
-                // Send a POST request to the API endpoint
-                const response = await fetch('/api/res', {
-                    method: 'POST',
-                    body: JSON.stringify({ guestId, checkIn, checkOut }),
-                    headers: { 'Content-Type': 'application/json' },
-            });
-        
-        }
-        })
+    // save variables to local storage to be accessed during booking page
+    localStorage.setItem("checkIn", checkIn);
+    localStorage.setItem("checkOut", checkOut);
 
+    // redirect to booking page
     document.location.replace('/booking');
 }
 
-search.on("click", formHandler);
+searchBtn.on("click", formHandler);

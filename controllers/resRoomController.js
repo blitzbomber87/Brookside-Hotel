@@ -5,8 +5,8 @@ module.exports = {
     add: async (req, res) => {
         try {
             const tempData = {
-                reservationId: req.session.reservation_id,
-                typeId: req.body.typeId,
+                reservationId: req.body.reservationId,
+                roomTypeId: req.body.roomTypeId,
                 quantity: req.body.quantity,
                 confirmed: true
             }
@@ -23,9 +23,6 @@ module.exports = {
             const resRoomData = await ReservedRoom.findAll({
                 include:
                     [{ model: Reservation }, {model: RoomType}],
-                where: {
-                    reservationId: req.body.reservationId
-                },
             });
             res.json(resRoomData);
         } catch (err) {
