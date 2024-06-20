@@ -1,6 +1,7 @@
-<h2 class="m-5">Hello {{guest.fullName}}</h2>
+<h2 class="m-5">Hello!</h2>
 
 <h3 class="m-5">Reservations</h3>
+{{#if reservations}}
 <div class="accordion accordion-flush mx-5" id="accordionFlush">
   <div class="accordion-item">
     <h2 class="accordion-header" id="upcoming">
@@ -12,8 +13,8 @@
       <div class="accordion-body">
         <ul class="list-group list-group-flush">
             {{!-- will need to add helper(?) to pull out only reservations after current date --}}
-            {{#each Reservations}}
-                <li class="list-group-item">Reservation #{{id}} ({{checkIn}} - {{checkOut}})</li>
+            {{#each reservations}}
+                <li class="list-group-item">Reservation #{{id}} ({{format_date checkIn}} - {{format_date checkOut}})</li>
             {{/each}}
         </ul>
       </div>
@@ -27,11 +28,16 @@
     </h2>
     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="past" data-bs-parent="#accordionFlush">
       <div class="accordion-body">
-        {{!-- will need to add helper(?) to pull out only reservations before current date --}}
-        {{#each Reservations}}
-                <li class="list-group-item">Reservation #{{id}} ({{checkIn}} - {{checkOut}})</li>
-        {{/each}}
+        <ul class="list-group list-group-flush">
+            {{!-- will need to add helper(?) to pull out only reservations after current date --}}
+            {{#each reservations}}
+                <li class="list-group-item">Reservation #{{id}} ({{format_date checkIn}} - {{format_date checkOut}})</li>
+            {{/each}}
+        </ul>
       </div>
     </div>
   </div>
 </div>
+{{else}}
+<p class="m-5">No reservations have been made yet.</p>
+{{/if}}
