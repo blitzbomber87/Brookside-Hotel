@@ -1,36 +1,38 @@
-const { Reservation } = require("../models");
+const { Reservation, ReservedRoom } = require("../models");
+const { isValidDate, isCheckInBeforeCheckOut } = require('../utils/helpers');
 
 module.exports = {
     add: async (req, res) => {
         try {
-            const { checkIn, checkOut } = req.body;
-            const checkInDate = new Date(checkIn);
-            const checkOutDate = new Date(checkOut);
-            const today = new Date();
+            const { checkIn, checkOut, rooms } = req.body;
 
-            today.setHours(0, 0, 0, 0);
-
-            if (checkInDate < today) {
-                return res.status(400).json({ error: 'Check-in date cannot be in the past.' });
+            if (!isValidDate(checkIn) || !isValidDate(checkOut)) {
+                return res.status(400).json({ error: 'Invalid date format.' });
             }
 
-            if (checkOutDate <= checkInDate) {
+            if (!isCheckInBeforeCheckOut(checkIn, checkOut)) {
                 return res.status(400).json({ error: 'Check-out date must be after the check-in date.' });
             }
 
-            const tempData = {
+            const reservationData = await Reservation.create({
                 guestId: req.session.guest_id,
-                checkIn: checkInDate,
-                checkOut: checkOutDate
-            };
+                checkIn: new Date(checkIn),
+                checkOut: new Date(checkOut)
+            });
 
-            const reservationData = await Reservation.create(tempData);
+            const reservedRooms = rooms.map(room => ({
+                reservation_id: reservationData.id,
+                room_type: room.room_type,
+                quantity: room.quantity,
+                confirmed: false
+            }));
+
+            await ReservedRoom.bulkCreate(reservedRooms);
 
             req.session.save(() => {
                 req.session.reservation_id = reservationData.id;
+                res.json(reservationData);
             });
-
-            res.json(reservationData);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -38,9 +40,8 @@ module.exports = {
     getReservations: async (req, res) => {
         try {
             const reservationData = await Reservation.findAll({
-                where: {
-                    guestId: req.session.guest_id
-                }
+                where: { guestId: req.session.guest_id },
+                include: ['ReservedRooms']
             });
             res.json(reservationData);
         } catch (err) {
@@ -48,3 +49,4 @@ module.exports = {
         }
     },
 };
+
