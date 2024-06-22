@@ -1,4 +1,4 @@
-const { Reservation } = require("../models");
+const { Reservation, Guest, ReservedRoom, RoomType } = require("../models");
 
 module.exports = {
     add: async (req, res) => {
@@ -32,4 +32,20 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    getReservation: async (req, res) => {
+        try {
+            const reservationData = await Reservation.findOne({
+                include:
+                    [{ model: Guest}, { model: ReservedRoom, include: [{ model: RoomType }]}],
+                    where: {
+                        guestId: req.session.guest_id
+                    },
+                    order: [['id', 'DESC'],]
+            });
+
+            res.json(reservationData)
+        } catch(err) {
+            res.status(500).json({ message: 'Internal server error!'})
+        }
+    }
 }

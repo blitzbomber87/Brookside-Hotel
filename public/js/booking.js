@@ -57,7 +57,9 @@ const bookingFormHandler = async (event) => {
 
     // get reservation id from api
     const allRes = await getData("/api/res");
-    const resId = allRes[allRes.length - 1].id;
+
+    const lastResId = allRes[allRes.length - 1];
+    const resId = lastResId.id;
 
     // for loop to cycle through all the different room quantities and create reserved rooms for reservation
     for (let i=1; i<=6; i++) {
@@ -68,6 +70,24 @@ const bookingFormHandler = async (event) => {
             const reservedRoom = await postResRoom(resId, i, Number(cardQty));
         }
     }
+
+    // get reservation details from newly created reservation
+    const resData = await getData(`api/res/${resId}`);
+
+    // create context object for email contents
+    const context = {
+            resId,
+            checkIn: dayjs(resData.checkIn).format("MMMM DD, YYYY"),
+            checkOut: dayjs(resData.checkOut).format("MMMM DD, YYYY"),
+            reservedRooms: resData.reservedRooms,
+    }
+
+    // post request to send email
+    const response = await fetch("/api/send-email", {
+        method: 'POST',
+        body: JSON.stringify({ to: resData.guest.email, context: context }),
+        headers: { 'Content-Type': 'application/json' },
+        })
 
     // redirect to confirmation page
     document.location.replace('/confirmation');
