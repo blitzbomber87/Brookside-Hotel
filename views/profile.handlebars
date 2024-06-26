@@ -12,10 +12,13 @@
     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="upcoming" data-bs-parent="#accordionFlush">
       <div class="accordion-body">
         <ul class="list-group list-group-flush">
-            {{!-- will need to add helper(?) to pull out only reservations after current date --}}
-            {{#each reservations}}
-                <li class="list-group-item">Reservation #{{id}} ({{format_date checkIn}} - {{format_date checkOut}})</li>
-            {{/each}}
+          {{!-- #each helper to iterate through all reservations and #if helper to compare checkin date}} --}}
+          {{#each reservations}}
+          {{#if (SameOrAfterToday checkIn)}}
+                <li class="list-group-item">Reservation #{{id}} 
+                  ({{format_date checkIn}} - {{format_date checkOut}})</li>
+          {{/if}}
+          {{/each}}  
         </ul>
       </div>
     </div>
@@ -29,9 +32,12 @@
     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="past" data-bs-parent="#accordionFlush">
       <div class="accordion-body">
         <ul class="list-group list-group-flush">
-            {{!-- will need to add helper(?) to pull out only reservations after current date --}}
+            {{!-- #each helper to iterate through all reservations and #if helper to compare checkin date}} --}}
             {{#each reservations}}
-                <li class="list-group-item">Reservation #{{id}} ({{format_date checkIn}} - {{format_date checkOut}})</li>
+            {{#if (beforeToday checkIn)}}
+                <li class="list-group-item">Reservation #{{id}} 
+                  ({{format_date checkIn}} - {{format_date checkOut}})</li>
+            {{/if}}
             {{/each}}
         </ul>
       </div>
