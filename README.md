@@ -24,7 +24,7 @@ SO THAT I can book my perfect stay for my vacation
 
 In terminal run 'npm install' command to install all necessary packages.
 
-Be sure to to put postgres login credintials in the .env file
+Be sure to to put postgres login credentials in a .env file. For nodemailer configuration, create an account at [brevo](https://app.brevo.com/) and put your connection / credentials in the .env file.
 
 ## Usage
 
@@ -57,6 +57,7 @@ All hotel contact information can be found in contact us tab.
 ![contactuspage](https://github.com/blitzbomber87/Brookside-Hotel/assets/157855730/e0e8cc4e-3a30-4d63-a852-b7fc960f4adc)
 
 ## Credits
+manfra.io (2024). "Dynamic Email Templates with Node.js and Nodemailer - Using Handlebars." https://www.youtube.com/watch?v=JbmZ86Ho01s. (mail.js)
 
 Eli - https://github.com/blitzbomber87
 Kristy - https://github.com/kristyyip

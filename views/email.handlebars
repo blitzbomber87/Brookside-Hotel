@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Thank you for booking with the Brookside Hotel!</h1>
+  
+  <h2>Please see your details below for Reservation #{{resId}}.</h2>
+  <p>Check-In: {{checkIn}}</p>
+  <p>Check-Out: {{checkOut}}</p>
+
+  <ul>
+    {{#each reservedRooms}}
+      <li>{{quantity}} x {{roomType.name}}</li>
+    {{/each}}
+  </ul>
+
+  <p>We look forward to seeing you!</p>
+</body>
+</html>
